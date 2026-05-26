@@ -1,2 +1,5 @@
 # POO-SmartTecnoHouse
-Repo para la RA de POO
+
+iJuan José Sánchez Cachero
+
+
