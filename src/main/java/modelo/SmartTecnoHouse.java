@@ -61,17 +61,16 @@ public class SmartTecnoHouse {
             s.actualizarValor();
         }
 
-        Map<String, String> estadoAntes = capturarEstadoActuadores();
+        String[] estadoAntes = capturarEstadoActuadores();
 
         for (Regla r : reglas) {
             r.aplicar(sensores, actuadores);
         }
 
-        for (Actuador a : actuadores) {
-            String antes   = estadoAntes.get(a.getID());
-            String despues = a.getEstadoActual();
-            if (!despues.equals(antes)) {
-                log.registrar(a.getID(), despues, "RULE");
+        for (int i = 0; i < actuadores.size(); i++) {
+            String despues = actuadores.get(i).getEstadoActual();
+            if (!despues.equals(estadoAntes[i])) {
+                log.registrar(actuadores.get(i).getID(), despues, "RULE");
             }
         }
     }
@@ -114,12 +113,12 @@ public class SmartTecnoHouse {
         reglas.add(new ReglaIluminacionAutomatica());
     }
 
-    private Map<String, String> capturarEstadoActuadores() {
-        Map<String, String> mapa = new LinkedHashMap<>();
-        for (Actuador a : actuadores) {
-            mapa.put(a.getID(), a.getEstadoActual());
+    private String[] capturarEstadoActuadores() {
+        String[] estados = new String[actuadores.size()];
+        for (int i = 0; i < actuadores.size(); i++) {
+            estados[i] = actuadores.get(i).getEstadoActual();
         }
-        return mapa;
+        return estados;
     }
 
     private Actuador buscarActuador(String id) {
