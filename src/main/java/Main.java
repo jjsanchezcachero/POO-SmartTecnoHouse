@@ -9,6 +9,32 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        // Se sustityue esta instanciación por el uso de la clase Singleton SmartTecnoHouse
+        System.out.println("\n=== SmartTecnoHouse (Singleton) ===");
+        SmartTecnoHouse sistema = SmartTecnoHouse.getInstance();
+
+        System.out.println("-- Ciclo automático 1 --");
+        sistema.procesarCiclo();
+
+        System.out.println("\nEstado sensores:");
+        for (Sensor s : sistema.getSensores()) {
+            System.out.printf("  %-25s -> %s%n", s.getNombre(), s.getEstadoActual());
+        }
+        System.out.println("Estado actuadores:");
+        for (Actuador a : sistema.getActuadores()) {
+            System.out.printf("  %-25s -> %s%n", a.getNombre(), a.getEstadoActual());
+        }
+
+        System.out.println("\n-- Acción manual --");
+        sistema.ejecutarAccionManual("bulb", "ON");
+        sistema.ejecutarAccionManual("plug", "ON");
+
+        System.out.println("\n-- Ciclo automático 2 --");
+        sistema.procesarCiclo();
+
+        System.out.println("\nLog guardado en: " + ServicioLog.FICHERO);
+
+        /*
         // --- Sensores ---
         List<modelo.Sensor> sensores = List.of(
                 new modelo.SensorTemperatura(),
@@ -99,5 +125,6 @@ public class Main {
         for (Actuador a : actuadores) {
             System.out.printf("  %-30s -> %s%n", a.getNombre(), a.getEstadoActual());
         }
+        */
     }
 }
