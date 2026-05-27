@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * R2. Iluminación Automática.
- *
  * Enciende la bombilla cuando el sensor de presencia detecta actividad.
  * La apaga en cualquier otro caso.
  */
