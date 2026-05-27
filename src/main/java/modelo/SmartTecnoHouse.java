@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * Modelo principal del sistema domótico (Patrón Singleton).
- *
  * Centraliza las colecciones de sensores, actuadores y reglas, y expone
  * dos operaciones de alto nivel:
  * <ul>
@@ -92,24 +91,11 @@ public class SmartTecnoHouse {
     }
 
     // -------------------------------------------------------------------------
-    // Gestión de reglas (el Controlador puede activar/desactivar reglas)
+    // Helpers privados - Getters
     // -------------------------------------------------------------------------
 
-    public void addRegla(Regla regla) {
-        reglas.add(regla);
-    }
-
-    public void removeRegla(Regla regla) {
-        reglas.remove(regla);
-    }
-
-    // -------------------------------------------------------------------------
-    // Getters (vistas no modificables para la capa Vista/Controlador)
-    // -------------------------------------------------------------------------
-
-    public List<Sensor>   getSensores()   { return Collections.unmodifiableList(sensores); }
-    public List<Actuador> getActuadores() { return Collections.unmodifiableList(actuadores); }
-    public List<Regla>    getReglas()     { return Collections.unmodifiableList(reglas); }
+    public List<Sensor>   getSensores()   { return sensores; }
+    public List<Actuador> getActuadores() { return actuadores; }
 
     // -------------------------------------------------------------------------
     // Helpers privados

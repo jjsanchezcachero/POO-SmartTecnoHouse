@@ -1,9 +1,4 @@
 import modelo.*;
-import modelo.reglas.Regla;
-import modelo.reglas.ReglaIluminacionAutomatica;
-import modelo.reglas.ReglaVentilacionConfortable;
-
-import java.util.List;
 
 // Main de ejemplo para probar la instanciación de sensores y polimorfismo
 public class Main {
