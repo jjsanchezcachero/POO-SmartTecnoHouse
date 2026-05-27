@@ -1,4 +1,7 @@
 import modelo.*;
+import modelo.reglas.Regla;
+import modelo.reglas.ReglaIluminacionAutomatica;
+import modelo.reglas.ReglaVentilacionConfortable;
 
 import java.util.List;
 
@@ -35,7 +38,6 @@ public class Main {
         }
 
         // --- Actuadores ---
-        // --- Actuadores ---
         ActuadorBombilla bombilla = new ActuadorBombilla();
         ActuadorVentilador ventilador = new ActuadorVentilador();
         ActuadorEnchufeInteligente enchufe = new ActuadorEnchufeInteligente();
@@ -61,9 +63,41 @@ public class Main {
         try {
             ventilador.ejecutarAccion("TURBO");
         } catch (IllegalArgumentException e) {
-            System.out.println("Excepción capturada: " + e.getMessage() +
-                    " Acciones posibles para " + ventilador.getNombre() + " " +
-                    String.join(", ", ventilador.getAccionesPosibles()));
+            System.out.printf(
+                    "Excepción capturada: %s Acciones posibles para %s %s%n",
+                    e.getMessage(),
+                    ventilador.getNombre(),
+                    String.join(", ", ventilador.getAccionesPosibles())
+            );
+        }
+
+        // --- Patrón Strategy: sistema de reglas ---
+        System.out.println("\n=== PATRÓN STRATEGY: REGLAS ===");
+
+        // Forzar valores conocidos para demostrar cada regla
+        // Se accede por posición de array sólo para comprobar y con motivo del test
+        sensores.get(0).actualizarValor(); // temperatura aleatoria
+        sensores.get(2).actualizarValor(); // presencia aleatoria
+
+        System.out.println("Estado sensores antes de aplicar reglas:");
+        for (Sensor s : sensores) {
+            System.out.printf("  %-25s -> %s%n", s.getNombre(), s.getEstadoActual());
+        }
+
+        List<Regla> reglas = List.of(
+                new ReglaVentilacionConfortable(),
+                new ReglaIluminacionAutomatica()
+        );
+
+        System.out.println("\nAplicando reglas...");
+        for (Regla r : reglas) {
+            r.aplicar(sensores, actuadores);
+            System.out.printf("  [%s] aplicada%n", r.getNombre());
+        }
+
+        System.out.println("\nEstado actuadores tras aplicar reglas:");
+        for (Actuador a : actuadores) {
+            System.out.printf("  %-30s -> %s%n", a.getNombre(), a.getEstadoActual());
         }
     }
 }
