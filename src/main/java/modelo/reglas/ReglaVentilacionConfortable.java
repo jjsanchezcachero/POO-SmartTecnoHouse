@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * R1. Ventilación Confortable.
- *
  * Controla el ventilador según la temperatura ambiente:
  * <ul>
  *   <li>>= 27 °C → HIGH</li>
