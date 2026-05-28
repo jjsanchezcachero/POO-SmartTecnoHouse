@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Servicio de logging Singleton que escribe las acciones sobre actuadores
@@ -19,14 +21,21 @@ import java.time.temporal.ChronoUnit;
 public class ServicioLog {
 
     public static final String FICHERO = "actuators.log";
+
     private static final String CABECERA =
             String.format("%-25s %-12s %-8s %-10s", "Timestamp", "Actuator", "Action", "Source");
     private static final String SEPARADOR = "-".repeat(57);
+
     private static ServicioLog instancia;
+
+    private final List<String> historial = new ArrayList<>();
 
     private ServicioLog() {
         escribirCabecera();
     }
+
+    public List<String> getHistorial() { return historial; }
+
 
     /** @return única instancia del servicio */
     public static ServicioLog getInstance() {
@@ -47,10 +56,13 @@ public class ServicioLog {
         String ts = Instant.now().truncatedTo(ChronoUnit.SECONDS).toString();
         String linea = String.format("%-25s %-12s %-8s %-10s", ts, idActuador, accion, fuente);
         System.out.println("[LOG] " + linea);
+        historial.add(linea);
         append(linea);
     }
 
     private void escribirCabecera() {
+        historial.add(CABECERA);
+        historial.add(SEPARADOR);
         try (PrintWriter pw = new PrintWriter(new FileWriter(FICHERO, false))) {
             pw.println(CABECERA);
             pw.println(SEPARADOR);

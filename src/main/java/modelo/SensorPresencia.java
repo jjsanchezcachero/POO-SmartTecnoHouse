@@ -3,8 +3,7 @@ package modelo;
 import java.util.Random;
 
 /**
- * Sensor PIR de presencia. Devuelve "DETECTADO" / "NO_DETECTADO" en lugar
- * de un valor numérico continuo, por lo que sobreescribe {@link #getEstadoActual()}.
+ * Sensor PIR de presencia. Devuelve "ON" / "OFF"
  */
 public class SensorPresencia extends Sensor {
 

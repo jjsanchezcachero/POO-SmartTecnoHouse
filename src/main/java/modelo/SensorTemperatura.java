@@ -13,6 +13,7 @@ public class SensorTemperatura extends Sensor {
 
     @Override
     public void actualizarValor() {
+        // Valor aleatorio
         setValor(String.valueOf(15.0 + random.nextDouble() * 20.0));
     }
 }

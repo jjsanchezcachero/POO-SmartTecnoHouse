@@ -12,10 +12,7 @@ import java.util.List;
  *   <li>{@link #procesarCiclo()} — actualiza sensores, aplica reglas y loguea cambios.</li>
  *   <li>{@link #ejecutarAccionManual(String, String)} — acción directa desde la GUI.</li>
  * </ul>
- *
- * En primera instancia se gestiona con estos ciclos de ejecución para comprobar su uso,
- * Se refactorizará cuando se integre con la GUI y posibles lecturas desde fichero.
- */
+ * */
 public class SmartTecnoHouse {
 
     private static SmartTecnoHouse instancia;
@@ -80,10 +77,24 @@ public class SmartTecnoHouse {
      * @throws IllegalArgumentException si el ID no existe o la acción no es válida
      */
     public void ejecutarAccionManual(String idActuador, String accion) {
-        Actuador a = buscarActuador(idActuador);
-        a.ejecutarAccion(accion);
-        log.registrar(idActuador, accion, "MANUAL");
+        try{
+            Actuador a = buscarActuador(idActuador);
+
+            a.ejecutarAccion(accion);
+            log.registrar(idActuador, accion, "MANUAL");
+        }
+        catch (IllegalArgumentException e){
+            System.err.println("[LOG] Error al buscar el actuador  " + e.getMessage());
+        }
     }
+
+    // -------------------------------------------------------------------------
+    // Gestión de reglas (el Controlador puede activar/desactivar reglas)
+    // -------------------------------------------------------------------------
+
+    public void addRegla(Regla regla)    { reglas.add(regla); }
+    public void removeRegla(Regla regla) { reglas.remove(regla); }
+    public void limpiarReglas()          { reglas.clear(); }
 
     // -------------------------------------------------------------------------
     // Helpers privados - Getters
@@ -91,6 +102,8 @@ public class SmartTecnoHouse {
 
     public List<Sensor>   getSensores()   { return sensores; }
     public List<Actuador> getActuadores() { return actuadores; }
+    public List<Regla>    getReglas()     { return reglas; }
+
 
     // -------------------------------------------------------------------------
     // Helpers privados
@@ -119,9 +132,9 @@ public class SmartTecnoHouse {
     }
 
     private Actuador buscarActuador(String id) {
-        return actuadores.stream()
-                .filter(a -> a.getID().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Actuador no encontrado: " + id));
+        for (Actuador a : actuadores) {
+            if (a.getID().equals(id)) return a;
+        }
+        throw new IllegalArgumentException("Actuador no encontrado: " + id);
     }
 }

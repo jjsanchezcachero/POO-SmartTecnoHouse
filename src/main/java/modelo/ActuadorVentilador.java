@@ -1,17 +1,17 @@
 package modelo;
 
-/** Actuador de ventilador. Acepta las acciones "OFF", "LOW", "MEDIUM" y "HIGH".
- * "LOW", "MEDIUM" y "HIGH" suponen un "ON" implícito */
+/** Actuador de ventilador. Acepta las acciones "OFF", "LOW" y "HIGH".
+ * "LOW" y "HIGH" suponen un "ON" implícito */
 public class ActuadorVentilador extends Actuador {
 
-    private static final String[] ACCIONES = {"OFF", "LOW", "MEDIUM", "HIGH"};
+    private static final String[] ACCIONES = {"OFF", "LOW", "HIGH"};
 
     public ActuadorVentilador() {
         super("fan", "Ventilador", "OFF");
     }
 
     @Override
-    public void ejecutarAccion(String accion) {
+    public void ejecutarAccion(String accion) throws IllegalArgumentException {
         if (esAccionValida(accion)) {
             setEstadoActual(accion);
         } else {

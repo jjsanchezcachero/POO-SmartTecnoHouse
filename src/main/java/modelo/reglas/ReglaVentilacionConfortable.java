@@ -14,7 +14,7 @@ import java.util.List;
  *   <li><= 21 °C → OFF</li>
  * </ul>
  */
-public class ReglaVentilacionConfortable extends ReglaBase {
+public class ReglaVentilacionConfortable implements Regla {
 
     private static final String NOMBRE_REGLA = "R1. Ventilación Confortable";
     private static final double TEMP_ALTA  = 27.0;
@@ -26,8 +26,8 @@ public class ReglaVentilacionConfortable extends ReglaBase {
 
     @Override
     public void aplicar(List<Sensor> sensores, List<Actuador> actuadores) {
-        Sensor sTemp = buscar(sensores, "temp");
-        Actuador fan  = buscar(actuadores, "fan");
+        Sensor sTemp = Sensor.buscar(sensores, "temp");
+        Actuador fan = Actuador.buscar(actuadores, "fan");
         if (sTemp == null || fan == null) return;
 
         double temp = Double.parseDouble(sTemp.getValor());

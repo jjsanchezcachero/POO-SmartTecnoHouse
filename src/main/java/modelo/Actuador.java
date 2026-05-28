@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Clase base abstracta para todos los actuadores.
@@ -51,6 +52,14 @@ public abstract class Actuador implements IDispositivo {
 
     protected void setEstadoActual(String estado) {
         this.estadoActual = estado;
+    }
+
+    /** Devuelve el primer actuador de {@code lista} cuyo ID coincida con {@code id}, o {@code null}. */
+    public static Actuador buscar(List<Actuador> lista, String id) {
+        for (Actuador a : lista) {
+            if (a.getID().equals(id)) return a;
+        }
+        return null;
     }
 }
 

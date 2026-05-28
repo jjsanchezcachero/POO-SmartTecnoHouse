@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 /**
  * Clase base abstracta para todos los sensores.
  */
@@ -33,10 +35,6 @@ public abstract class Sensor implements IDispositivo {
         this.valor = valor;
     }
 
-    protected String getUnidad() {
-        return unidad;
-    }
-
     @Override
     public String getID() {
         return id;
@@ -50,5 +48,13 @@ public abstract class Sensor implements IDispositivo {
     @Override
     public String getEstadoActual() {
         return valor + (unidad.isEmpty() ? "" : " " + unidad);
+    }
+
+    /** Devuelve el primer sensor de {@code lista} cuyo ID coincida con {@code id}, o {@code null}. */
+    public static Sensor buscar(List<Sensor> lista, String id) {
+        for (Sensor s : lista) {
+            if (s.getID().equals(id)) return s;
+        }
+        return null;
     }
 }

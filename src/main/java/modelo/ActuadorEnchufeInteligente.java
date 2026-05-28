@@ -10,7 +10,7 @@ public class ActuadorEnchufeInteligente extends Actuador {
     }
 
     @Override
-    public void ejecutarAccion(String accion) {
+    public void ejecutarAccion(String accion) throws IllegalArgumentException {
         if (esAccionValida(accion)) {
             setEstadoActual(accion);
         } else {
