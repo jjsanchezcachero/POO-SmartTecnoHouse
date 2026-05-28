@@ -67,7 +67,7 @@ public class ServicioPersistencia {
         if (!f.exists()) return;
 
         try {
-            String contenido = new String(Files.readAllBytes(Paths.get(FICHERO)), StandardCharsets.UTF_8);
+            String contenido = Files.readString(Paths.get(FICHERO));
             JSONObject raiz  = new JSONObject(contenido);
 
             cargarActuadores(raiz, sistema);
