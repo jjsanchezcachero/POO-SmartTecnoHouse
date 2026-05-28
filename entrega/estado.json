@@ -1,0 +1,17 @@
+{
+  "actuadores": [
+    {
+      "estado": "ON",
+      "id": "bulb"
+    },
+    {
+      "estado": "HIGH",
+      "id": "fan"
+    },
+    {
+      "estado": "ON",
+      "id": "plug"
+    }
+  ],
+  "reglas": []
+}

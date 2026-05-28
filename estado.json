@@ -1,0 +1,20 @@
+{
+  "actuadores": [
+    {
+      "estado": "ON",
+      "id": "bulb"
+    },
+    {
+      "estado": "HIGH",
+      "id": "fan"
+    },
+    {
+      "estado": "OFF",
+      "id": "plug"
+    }
+  ],
+  "reglas": [
+    "R1. Ventilación Confortable",
+    "R2. Iluminación Automática"
+  ]
+}
